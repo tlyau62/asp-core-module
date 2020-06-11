@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\WebApplication11\WebApplication11.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="rd /s /q $(SolutionDir)WebApplication11\bin\Debug\netcoreapp3.1\moduleroot\$(TargetName)&#xD;&#xA;xcopy $(TargetDir). $(SolutionDir)WebApplication11\bin\Debug\netcoreapp3.1\moduleroot\$(TargetName) /S /I" />
+  </Target>
+</Project>
